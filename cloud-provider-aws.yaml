@@ -185,7 +185,7 @@ spec:
             - --cloud-provider=aws
             - --allocate-node-cidrs=true
             - --configure-cloud-routes=true
-            - --cluster-cidr=10.244.0.0/16
+            - --cluster-cidr=172.16.0.0/16
           resources:
             requests:
               cpu: 200m
