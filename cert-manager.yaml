@@ -5,7 +5,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager-cainjector
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -21,7 +21,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -37,7 +37,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager-webhook
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -52,7 +52,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cert-manager
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -68,7 +68,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cert-manager-webhook
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -4986,7 +4986,7 @@ roleRef:
   name: cert-manager-cainjector
 subjects:
   - name: cert-manager-cainjector
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5008,7 +5008,7 @@ roleRef:
   name: cert-manager-controller-issuers
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5030,7 +5030,7 @@ roleRef:
   name: cert-manager-controller-clusterissuers
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5052,7 +5052,7 @@ roleRef:
   name: cert-manager-controller-certificates
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5074,7 +5074,7 @@ roleRef:
   name: cert-manager-controller-orders
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5096,7 +5096,7 @@ roleRef:
   name: cert-manager-controller-challenges
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5118,7 +5118,7 @@ roleRef:
   name: cert-manager-controller-ingress-shim
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5140,7 +5140,7 @@ roleRef:
   name: cert-manager-controller-approve:cert-manager-io
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5162,7 +5162,7 @@ roleRef:
   name: cert-manager-controller-certificatesigningrequests
 subjects:
   - name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/webhook-rbac.yaml
@@ -5186,7 +5186,7 @@ subjects:
 - apiGroup: ""
   kind: ServiceAccount
   name: cert-manager-webhook
-  namespace: kube-system
+  namespace: cert-manager
 ---
 # Source: cert-manager/templates/cainjector-rbac.yaml
 # leader election rules
@@ -5245,7 +5245,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: cert-manager-webhook:dynamic-serving
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5288,7 +5288,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: cert-manager-cainjector
-    namespace: kube-system
+    namespace: cert-manager
 ---
 # Source: cert-manager/templates/rbac.yaml
 # grant cert-manager permission to manage the leaderelection configmap in the
@@ -5314,14 +5314,14 @@ subjects:
   - apiGroup: ""
     kind: ServiceAccount
     name: cert-manager
-    namespace: kube-system
+    namespace: cert-manager
 ---
 # Source: cert-manager/templates/webhook-rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager-webhook:dynamic-serving
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5338,14 +5338,14 @@ subjects:
 - apiGroup: ""
   kind: ServiceAccount
   name: cert-manager-webhook
-  namespace: kube-system
+  namespace: cert-manager
 ---
 # Source: cert-manager/templates/webhook-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: cert-manager-webhook
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5371,7 +5371,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager-cainjector
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -5437,7 +5437,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -5528,7 +5528,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager-webhook
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5636,7 +5636,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     helm.sh/chart: cert-manager-v1.13.3
   annotations:
-    cert-manager.io/inject-ca-from-secret: "kube-system/cert-manager-webhook-ca"
+    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-ca"
 webhooks:
   - name: webhook.cert-manager.io
     rules:
@@ -5662,7 +5662,7 @@ webhooks:
     clientConfig:
       service:
         name: cert-manager-webhook
-        namespace: kube-system
+        namespace: cert-manager
         path: /mutate
 ---
 # Source: cert-manager/templates/webhook-validating-webhook.yaml
@@ -5679,7 +5679,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     helm.sh/chart: cert-manager-v1.13.3
   annotations:
-    cert-manager.io/inject-ca-from-secret: "kube-system/cert-manager-webhook-ca"
+    cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-ca"
 webhooks:
   - name: webhook.cert-manager.io
     namespaceSelector:
@@ -5710,7 +5710,7 @@ webhooks:
     clientConfig:
       service:
         name: cert-manager-webhook
-        namespace: kube-system
+        namespace: cert-manager
         path: /validate
 ---
 # Source: cert-manager/templates/startupapicheck-serviceaccount.yaml
@@ -5719,7 +5719,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager-startupapicheck
-  namespace: kube-system
+  namespace: cert-manager
   annotations:
     helm.sh/hook: post-install
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
@@ -5739,7 +5739,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: cert-manager-startupapicheck:create-cert
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: startupapicheck
     app.kubernetes.io/name: startupapicheck
@@ -5762,7 +5762,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager-startupapicheck:create-cert
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: startupapicheck
     app.kubernetes.io/name: startupapicheck
@@ -5782,14 +5782,14 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: cert-manager-startupapicheck
-    namespace: kube-system
+    namespace: cert-manager
 ---
 # Source: cert-manager/templates/startupapicheck-job.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: cert-manager-startupapicheck
-  namespace: kube-system
+  namespace: cert-manager
   labels:
     app: startupapicheck
     app.kubernetes.io/name: startupapicheck
@@ -5845,3 +5845,58 @@ spec:
               memory: 50Mi
       nodeSelector:
         kubernetes.io/os: linux
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-k8s-admin-services
+  namespace: cert-manager
+spec:
+  acme:
+    email: iot.admin@aprilaire.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-admin-services-key 
+    solvers:
+      - dns01:
+          route53:
+            region: us-west-2
+            hostedZoneID: Z0857266AY3UN67WOBBX 
+            role: arn:aws:iam::785551475609:role/dns-manager
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: selfsigned-ca
+  secretName: selfsigned-root-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-ca-issuer
+spec:
+  ca:
+    secretName: selfsigned-root-secret            
+
+            
