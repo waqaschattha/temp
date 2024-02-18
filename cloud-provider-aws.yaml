@@ -6,8 +6,6 @@ metadata:
   name: cloud-controller-manager
   namespace: kube-system
   labels:
-    app: aws-cloud-controller-manager
-    version: v0.0.8
     helm.sh/chart: "aws-cloud-controller-manager-0.0.8"
 ---
 # Source: aws-cloud-controller-manager/templates/clusterrole.yaml
@@ -16,8 +14,6 @@ kind: ClusterRole
 metadata:
   name: system:cloud-controller-manager
   labels:
-    app: aws-cloud-controller-manager
-    version: v0.0.8
     helm.sh/chart: "aws-cloud-controller-manager-0.0.8"
 rules: 
   - apiGroups:
@@ -106,8 +102,6 @@ kind: ClusterRoleBinding
 metadata:
   name: system:cloud-controller-manager
   labels:
-    app: aws-cloud-controller-manager
-    version: v0.0.8
     helm.sh/chart: "aws-cloud-controller-manager-0.0.8"
 roleRef:
   kind: ClusterRole
@@ -126,8 +120,6 @@ metadata:
   name: cloud-controller-manager:apiserver-authentication-reader
   namespace: kube-system
   labels: 
-    app: aws-cloud-controller-manager
-    version: v0.0.8
     helm.sh/chart: "aws-cloud-controller-manager-0.0.8"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -145,8 +137,6 @@ kind: DaemonSet
 metadata:
   name: aws-cloud-controller-manager
   labels:
-    app: aws-cloud-controller-manager
-    version: v0.0.8
     k8s-app:  aws-cloud-controller-manager
     helm.sh/chart: "aws-cloud-controller-manager-0.0.8"
   namespace: kube-system
@@ -160,8 +150,6 @@ spec:
     metadata:
       name: aws-cloud-controller-manager
       labels:
-        app: aws-cloud-controller-manager
-        version: v0.0.8
         k8s-app:  aws-cloud-controller-manager
     spec:
       tolerations: 
@@ -170,8 +158,8 @@ spec:
           value: "true"
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
+      nodeSelector: 
+        node-role.kubernetes.io/control-plane: ""
       dnsPolicy: Default
       priorityClassName: system-node-critical
       serviceAccountName: cloud-controller-manager
@@ -179,16 +167,20 @@ spec:
         {}
       containers:
         - name: aws-cloud-controller-manager
-          image: "registry.k8s.io/provider-aws/cloud-controller-manager:v1.28.1"
+          image: "registry.k8s.io/provider-aws/cloud-controller-manager:v1.28.4"
           args:
             - --v=2
             - --cloud-provider=aws
             - --allocate-node-cidrs=true
-            - --configure-cloud-routes=true
             - --cluster-cidr=172.16.0.0/16
+            - --configure-cloud-routes=true
           resources:
+            limits:
+              cpu: 80m
+              memory: 150Mi
             requests:
-              cpu: 200m
+              cpu: 50m
+              memory: 100Mi
           env:
             []
           securityContext:
