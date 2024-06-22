@@ -704,9 +704,6 @@ spec:
         app.kubernetes.io/name: cilium-agent
         app.kubernetes.io/part-of: cilium
     spec:
-      securityContext:
-        appArmorProfile:
-          type: Unconfined
       containers:
       - name: cilium-agent
         image: "quay.io/cilium/cilium:v1.15.6@sha256:6aa840986a3a9722cd967ef63248d675a87add7e1704740902d5d3162f0c0def"
