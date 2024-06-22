@@ -158,6 +158,8 @@ spec:
           value: "true"
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/worker
       nodeSelector: 
         node-role.kubernetes.io/control-plane: ""
       dnsPolicy: Default
@@ -172,8 +174,8 @@ spec:
             - --v=2
             - --cloud-provider=aws
             - --allocate-node-cidrs=true
-            - --cluster-cidr=172.16.0.0/16
-            - --configure-cloud-routes=true
+            - --cluster-cidr=10.10.128.0/21
+            - --configure-cloud-routes=false
           resources:
             limits:
               cpu: 80m
